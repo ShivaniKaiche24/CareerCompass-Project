@@ -1,0 +1,30 @@
+package com.careercompass_backend.model;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
+import jakarta.persistence.PrePersist;
+
+public class Roadmap {
+	
+	private Long roadmapId;
+	
+	private User user;
+	
+	private String title;
+	
+	private LocalDate startDate;
+	
+	private LocalDate endDate;
+	
+	private String status = "ACTIVE";
+	
+	private LocalDateTime generatedAt;
+	
+	@PrePersist
+	
+	protected void onCreate() {
+		this.generatedAt = LocalDateTime.now();
+	}
+
+}

@@ -1,0 +1,40 @@
+package com.careercompass_backend.model;
+
+import java.time.LocalDate;
+
+import jakarta.persistence.*;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Entity
+@Table(name = "applications")
+@Data
+@NoArgsConstructor
+public class Application {
+	
+	 @Id
+	 @GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long applicationId;
+	
+	private User user;
+	
+	/*
+     * Optional FK to Consultancy.
+     * nullable = true because many applications are direct — no consultancy involved.
+     * When a consultancy is used, we store which one so we can later analyse
+     * "which consultancies actually produce results vs which waste time".
+     */
+	private Consultancy consultancy;
+	
+	private String companyName;
+	
+	private String role ;
+	
+	private LocalDate applyDate;
+	
+	private String status = "APPLIED";
+	
+	private LocalDate followUpDate;
+	
+
+}

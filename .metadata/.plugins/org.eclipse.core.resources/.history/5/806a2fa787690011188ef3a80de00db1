@@ -1,0 +1,33 @@
+package com.careercompass_backend.model;
+
+import java.time.LocalDate;
+
+import jakarta.persistence.*;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Entity
+@Table(name="tasks")
+@Data
+@NoArgsConstructor
+public class Task {
+	
+	private Long taskId;
+	
+	private Roadmap roadmap;
+	
+	private Integer dayNumber; // dayNumber represents which day of the roadmap this task belongs to
+	
+	private String title;
+	
+	private String description;
+	
+	private LocalDate dueDate;
+	
+	private String status = "PENDING" ;
+	
+	
+	
+	
+
+}

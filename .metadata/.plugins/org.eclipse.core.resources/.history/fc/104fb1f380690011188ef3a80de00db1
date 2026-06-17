@@ -1,0 +1,62 @@
+package com.careercompass_backend.model;
+
+import java.time.LocalDateTime;
+
+import jakarta.persistence.*;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Entity
+@Table(name = "users")
+@Data
+@NoArgsConstructor
+public class User {
+	
+	 /*
+     * @Id marks this as the primary key.
+     * @GeneratedValue(IDENTITY) tells MySQL to auto-increment this column.
+     * We use Long (not int) because IDs can grow very large over time.
+     */
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long user_id;
+	
+	  /*
+     * nullable = false → Hibernate adds NOT NULL constraint to the column.
+     * This is enforced at the database level, not just in Java.
+     */
+	@Column(nullable = false)
+	private String name;
+	
+	 /*
+     * unique = true → Hibernate adds a UNIQUE constraint.
+     * This is what prevents two users from registering with the same email.
+     * The login system depends on email being a unique identifier.
+     */
+	@Column(unique = true , nullable = false)
+	private String email;
+	
+	 /*
+     * This stores the BCrypt hash, never the plain password.
+     * BCrypt produces a 60-character string — VARCHAR(255) is more than enough.
+     */
+	@Column(nullable = false)
+	private String passwordHash;
+	
+	// Profile fields — drive roadmap template selection
+	private String degree_type;    // B.Tech / MCA / CDAC
+	private String specialization; // Java / Data Science /Full Stack 
+	private int passout_year;      // e.g. 2023 = for calculating gap 
+	
+	
+	
+	private String role;
+	private boolean is_gap_candidate;
+	private int gap_months;
+	private String gap_reason;
+	private LocalDateTime created_At;
+	
+	
+	
+
+}

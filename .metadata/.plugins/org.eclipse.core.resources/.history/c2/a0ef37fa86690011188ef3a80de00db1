@@ -1,0 +1,12 @@
+package com.careercompass_backend.model;
+
+public class Task {
+	
+	private Long taskId;
+	
+	private Roadmap roadmap;
+	
+	private Integer dayNumber;
+	
+
+}

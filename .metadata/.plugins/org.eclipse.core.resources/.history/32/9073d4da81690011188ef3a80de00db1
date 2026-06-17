@@ -1,0 +1,99 @@
+package com.careercompass_backend.model;
+
+import java.time.LocalDateTime;
+
+import jakarta.persistence.*;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Entity
+@Table(name = "users")
+@Data
+@NoArgsConstructor
+public class User {
+	
+	 /*
+     * @Id marks this as the primary key.
+     * @GeneratedValue(IDENTITY) tells MySQL to auto-increment this column.
+     * We use Long (not int) because IDs can grow very large over time.
+     */
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long userId;
+	
+	  /*
+     * nullable = false → Hibernate adds NOT NULL constraint to the column.
+     * This is enforced at the database level, not just in Java.
+     */
+	@Column(nullable = false)
+	private String name;
+	
+	 /*
+     * unique = true → Hibernate adds a UNIQUE constraint.
+     * This is what prevents two users from registering with the same email.
+     * The login system depends on email being a unique identifier.
+     */
+	@Column(unique = true , nullable = false)
+	private String email;
+	
+	 /*
+     * This stores the BCrypt hash, never the plain password.
+     * BCrypt produces a 60-character string — VARCHAR(255) is more than enough.
+     */
+	@Column(nullable = false)
+	private String passwordHash;
+	
+	// Profile fields — drive roadmap template selection
+	private String degreeType;    // B.Tech / MCA / CDAC
+	private String specialization; // Java / Data Science /Full Stack 
+	private int passoutYear;      // e.g. 2023 = for calculating gap 
+	
+	/*
+     * TEXT type for longer strings.
+     * Skills are stored comma-separated: "Java,Spring Boot,MySQL"
+     * A separate skills table would be more normalized but adds complexity
+     * for this project's scope.
+     */
+	@Column(columnDefinition = "TEXT")
+	private String skills;
+	
+	private String jobTarget;  // Java Developer / Data Analyst 
+	
+	
+	/*
+     * Role controls access level throughout the application.
+     * Only two values: "USER" or "ADMIN"
+     * Spring Security reads this to enforce @PreAuthorize rules.
+     */
+	@Column(nullable = false)
+	private String role = "USER";   // default value - every registration is USER
+	
+	 // ── Gap candidate fields ─────────────────────────────────────────────────
+    /*
+     * This single boolean activates an entirely different code path
+     * in RoadmapService. When true:
+     *   - ATS bypass tips are fetched and injected as Week 1-2 tasks
+     *   - Gap-friendly company directory becomes relevant
+     * This is the field that makes CareerCompass unique.
+     */
+	private boolean isGapCandidate=false;
+	
+	private int gapMonths;
+	
+	private String gapReason;
+	
+	private String gapStatement;
+	private LocalDateTime createdAt;
+	
+	/*@PrePersist is a JPA lifecycle annotation.
+	 *It tells Hibernate:
+     *"Run this method automatically just before inserting a new record into the database."
+	*/
+	
+	@PrePersist 
+	protected void onCreate() {
+		this.createdAt = LocalDateTime.now();
+		
+	}
+
+}

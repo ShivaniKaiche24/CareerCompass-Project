@@ -1,0 +1,5 @@
+package com.careercompass_backend.config;
+
+public class TempSecurityConfig {
+
+}

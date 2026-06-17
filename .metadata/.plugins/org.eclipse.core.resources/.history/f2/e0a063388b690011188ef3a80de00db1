@@ -1,0 +1,24 @@
+package com.careercompass_backend.model;
+
+public class Resource {
+	
+	private Long resourceId;
+	
+	private String name;
+	
+	private String type;  // CDAC / CONSULTANCY / JOB_PORTAL / TRAINING
+	
+	private String city;  // used for location based filtering
+	
+	private String url;
+	
+	/*
+     * The most important field in this entity.
+     * Admin-verified: true = safe to use, false = fraud / poor quality.
+     * Graduates filter resources by isGenuine=true to get a safe list.
+     */
+     
+	private Boolean isGenuine= true;
+	
+
+}
