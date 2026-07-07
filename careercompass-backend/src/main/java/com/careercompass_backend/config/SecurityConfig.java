@@ -3,7 +3,6 @@ package com.careercompass_backend.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -15,6 +14,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 import com.careercompass_backend.security.JwtAuthFilter;
 
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 
 //@Configuration -- this class defines Spring Beans
@@ -43,6 +43,7 @@ public class SecurityConfig {
 		return config.getAuthenticationManager();
 	}
     
+    @Bean
     public SecurityFilterChain filterChain(HttpSecurity http ) throws Exception {
     	http 
     	  // Disable CSRF - we use JWT in Authorization header , not cookies
@@ -65,6 +66,26 @@ public class SecurityConfig {
                   // Everthing else requires a valid JWT token
                  .anyRequest().authenticated()	 
     			 )
+    	 
+    	 .exceptionHandling(ex -> ex
+                 .authenticationEntryPoint((request, response, authException) -> {
+                     response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                     response.setContentType("application/json");
+                     response.getWriter().write(
+                         "{\"error\": \"No token provided or token is invalid\"}"
+                     );
+                 })
+                 .accessDeniedHandler((request, response, accessDeniedException) -> {
+                     response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+                     response.setContentType("application/json");
+                     response.getWriter().write(
+                         "{\"error\": \"You do not have permission to access this resource\"}"
+                     );
+                 })
+             )
+    	 
+    	 
+    	 
     	 
     	 // Never create server-side sessions - every request carries its own JWT
     	 // This enforces stateless REST architecture

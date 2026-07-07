@@ -27,7 +27,7 @@ public class Application {
      * "which consultancies actually produce results vs which waste time".
      */
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "consultant_id",nullable = false)
+	@JoinColumn(name = "consultant_id",nullable = true)
 	private Consultancy consultancy;
 	
 	@Column(nullable = false)

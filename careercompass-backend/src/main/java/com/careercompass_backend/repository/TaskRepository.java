@@ -12,6 +12,7 @@ import com.careercompass_backend.model.Task;
 
 public interface TaskRepository extends JpaRepository<Task, Long> {
 	
+	
 	// Today's task for user - imp query in this system
 	// @Query It fetches all tasks belonging to a specific user whose due date is today (or any date passed as parameter).	
 	@Query("SELECT t FROM Task t WHERE t.roadmap.user.userId = :userId AND t.dueDate = :date")
