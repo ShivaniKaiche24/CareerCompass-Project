@@ -9,5 +9,3 @@ careercompass-backend/target/
 # Compiled classes
 *.class
 
-# Keep application.properties out of GitHub (contains DB password)
-careercompass-backend/src/main/resources/application.properties
