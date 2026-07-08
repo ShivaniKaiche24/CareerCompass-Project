@@ -1,173 +1,114 @@
-# CareerCompass
+# CareerCompass — AI-Powered Career Guidance API
 
-## Overview
+A Spring Boot REST API built for freshers and gap candidates who need
+structured career guidance. Instead of generic advice, CareerCompass
+generates personalised week-by-week roadmaps using Google Gemini AI,
+tracks daily progress, and helps gap candidates bypass ATS screening.
 
-CareerCompass is a career guidance and job tracking platform designed to help students and job seekers manage their career journey in a structured manner.
+## Why I Built This
 
-The application allows users to create personalized learning roadmaps, track job applications, monitor progress, discover career resources, and access consultancy information through a centralized platform.
-
-This project was built to strengthen backend development skills using Spring Boot, REST APIs, Spring Security, JWT authentication, JPA/Hibernate, and MySQL.
-
----
+After completing CDAC in 2024, I had no clear direction — which role
+to target, which consultancies were genuine, how to explain my career
+gap in interviews. I built CareerCompass to solve exactly those problems.
 
 ## Features
 
-### User Management
+- **AI Roadmap Generation** — Google Gemini generates personalised
+  career roadmaps for any IT role based on user profile
+- **ATS Bypass Injection** — Gap candidates get resume formatting,
+  LinkedIn optimisation, and direct HR outreach tasks as Week 1-2
+- **Resume Optimizer** — Paste a job description, get keyword analysis,
+  match score, and an optimised summary (my own feature idea)
+- **Task Management** — Daily tasks, completion tracking, streak counter
+- **Job Application Tracker** — Log applications, track status pipeline,
+  follow-up reminders
+- **Resource Directory** — Verified resources, consultancy fraud checker,
+  gap-friendly company finder
+- **JWT Authentication** — BCrypt password hashing, stateless token auth
 
-* User registration and login
-* Secure password encryption using BCrypt
-* JWT-based authentication and authorization
+## Tech Stack
 
-### Roadmap Management
+| Layer | Technology |
+|---|---|
+| Language | Java 17 |
+| Framework | Spring Boot 3.2.5 |
+| Security | Spring Security + JWT (JJWT 0.12.3) |
+| Database | MySQL 8 + JPA/Hibernate |
+| AI | Google Gemini 2.5 Flash API |
+| Build | Maven |
+| API Docs | Swagger UI |
 
-* Create learning roadmaps
-* Add and manage tasks
-* Track roadmap progress
-
-### Job Application Tracking
-
-* Record job applications
-* Track application status
-* Maintain application history
-
-### Progress Monitoring
-
-* Store learning progress
-* Monitor completed activities
-* Generate career progress records
-
-### Resource Management
-
-* Career guidance resources
-* Learning materials
-* Consultancy recommendations
-
----
-
-## Technology Stack
-
-### Backend
-
-* Java 21
-* Spring Boot
-* Spring MVC
-* Spring Data JPA
-* Spring Security
-* Hibernate
-
-### Database
-
-* MySQL
-
-### Build Tool
-
-* Maven
+## API Endpoints
 
 ### Authentication
+- `POST /api/auth/register` — Register new user
+- `POST /api/auth/login` — Login, receive JWT token
 
-* JWT (JSON Web Token)
-* BCrypt Password Hashing
+### Roadmap
+- `POST /api/roadmap/generate` — Generate AI roadmap
+- `GET /api/roadmap/active` — Get active roadmap
 
-### Development Tools
+### Tasks
+- `GET /api/tasks/today` — Today's tasks
+- `PUT /api/tasks/{id}/complete` — Mark task complete
+- `GET /api/tasks/roadmap/{id}` — All roadmap tasks
+- `PUT /api/tasks/mark-overdue` — Mark overdue as MISSED
 
-* STS / Eclipse
-* Postman
-* Git
-* GitHub
+### Progress
+- `GET /api/progress/streak` — Current streak
+- `GET /api/progress/history` — Progress history
+- `POST /api/progress/update` — Update daily log
 
----
+### Applications
+- `POST /api/applications` — Log job application
+- `GET /api/applications` — View all applications
+- `PUT /api/applications/{id}/status` — Update status
+- `GET /api/applications/followups` — Today's follow-ups
+
+### Resources
+- `GET /api/resources` — Resource directory
+- `GET /api/consultancies` — Consultancy fraud checker
+- `GET /api/gap-companies` — Gap-friendly companies
+
+### Resume Optimizer (AI Feature)
+- `POST /api/resume/optimize` — Analyze resume vs job description
+
+## Setup Instructions
+
+1. Clone the repository
+```bash
+   git clone https://github.com/YOUR_USERNAME/careercompass-backend.git
+```
+
+2. Create MySQL database
+```sql
+   CREATE DATABASE careercompass_db;
+```
+
+3. Copy `application.properties.example` to `application.properties`
+   and fill in your values
+
+4. Get a free Gemini API key from `aistudio.google.com`
+
+5. Run the application
+```bash
+   mvn spring-boot:run
+```
+
+6. API is available at `http://localhost:8000`
+   Swagger docs at `http://localhost:8000/swagger-ui.html`
 
 ## Architecture
-
-Client
-↓
-REST API
-↓
-Controller Layer
-↓
-Service Layer
-↓
-Repository Layer
-↓
-MySQL Database
-
-The application follows a layered architecture to maintain separation of concerns and improve maintainability.
-
----
-
-## Database Design
-
-User
-├── Roadmap
-│ └── Task
-│
-├── Application
-│ └── Consultancy
-│
-└── ProgressLog
-
-Admin
-├── Resource
-├── Consultancy
-├── GapFriendlyCompany
-└── AtsBypassTip
-
----
-
-## Security Implementation
-
-* Stateless authentication
-* JWT token generation and validation
-* Custom JWT authentication filter
-* Password encryption using BCrypt
-* Protected API endpoints
-* Role-based access preparation
-
----
-
-## Key Concepts Implemented
-
-* RESTful API Design
-* Spring Security
-* JWT Authentication
-* Entity Relationships
-* JPA/Hibernate ORM
-* Validation
-* Exception Handling
-* DTO Pattern
-* Layered Architecture
-
----
-
-## Learning Outcomes
-
-Through this project I gained hands-on experience with:
-
-* Building production-style REST APIs
-* Designing relational database schemas
-* Implementing secure authentication systems
-* Working with JPA and Hibernate relationships
-* Applying layered architecture principles
-* Managing project dependencies using Maven
-* Version control using Git and GitHub
-
----
-
-## Future Enhancements
-
-* Email notifications
-* Resume analysis module
-* AI-powered career recommendations
-* Admin dashboard
-* Advanced reporting and analytics
-* Docker deployment
-* Cloud deployment (AWS)
-
----
+Controller Layer  →  receives HTTP requests
+Service Layer     →  business logic
+Repository Layer  →  database via JPA
+Security Layer    →  JWT filter on every request
+AI Layer          →  Gemini API integration
 
 ## Author
 
-Shivani Kaiche
+**Shivani Kaiche** 
+Java Backend Developer
 
-Java Backend Engineer
-
+LinkedIn: linkedin.com/in/shivanikaiche
+GitHub: github.com/ShivaniKaiche24
