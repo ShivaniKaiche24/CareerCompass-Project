@@ -47,6 +47,11 @@ private final ProgressLogService progressLogService;
 	
 	// Find Todays Task for User
 	public List<TaskResponseDTO> getTodaysTask(Long userId){
+		 // Validate user exists first
+	    // Without this, wrong userId just returns empty list silently
+	    userRepository.findById(userId)
+	            .orElseThrow(() -> new RuntimeException(
+	                    "User not found: " + userId));
 		
 		List <Task> task = taskRepository.findByTodaysTaskForUser(userId , LocalDate.now());
 		return task.stream().map(this::toDTO).collect(Collectors.toList());  // map () --> Stram Api method in Java used to transform one object into another object 
