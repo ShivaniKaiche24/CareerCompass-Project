@@ -54,48 +54,9 @@ public class SecurityConfig {
     	 .authorizeHttpRequests(auth ->  auth
     			 
     	 // Public:registration and login - user has no token yet		 
-         .requestMatchers("/api/auth/**").permitAll()
+         .anyRequest().permitAll());
          
-         //Public : Swagger docs- for development and demo 
-         .requestMatchers(
-        		 "/swagger-ui/**",
-        		 "/swagger-ui.html",
-        		 "/api-docs/**"
-        		 ).permitAll()
-         
-                  // Everthing else requires a valid JWT token
-                 .anyRequest().authenticated()	 
-    			 )
-    	 
-    	 .exceptionHandling(ex -> ex
-                 .authenticationEntryPoint((request, response, authException) -> {
-                     response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-                     response.setContentType("application/json");
-                     response.getWriter().write(
-                         "{\"error\": \"No token provided or token is invalid\"}"
-                     );
-                 })
-                 .accessDeniedHandler((request, response, accessDeniedException) -> {
-                     response.setStatus(HttpServletResponse.SC_FORBIDDEN);
-                     response.setContentType("application/json");
-                     response.getWriter().write(
-                         "{\"error\": \"You do not have permission to access this resource\"}"
-                     );
-                 })
-             )
-    	 
-    	 
-    	 
-    	 
-    	 // Never create server-side sessions - every request carries its own JWT
-    	 // This enforces stateless REST architecture
-    	 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-    			 )
-    	 
-    	 // Place out Jwt filter Before spring's default username/password filter
-    	 //SO JWT validation happens first on every request
-    	 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
-   
+        
          return http.build();
     }
     
