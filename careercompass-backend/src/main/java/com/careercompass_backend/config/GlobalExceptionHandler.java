@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 import com.careercompass_backend.dto.ErrorResponseDTO;
 
@@ -97,6 +98,19 @@ public class GlobalExceptionHandler {
 				LocalDateTime.now());
 		
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+	}
+	
+	@ExceptionHandler(NoResourceFoundException.class)
+	public ResponseEntity<ErrorResponseDTO> handleNoResourceFound(
+	        NoResourceFoundException ex) {
+
+	    ErrorResponseDTO error = new ErrorResponseDTO(
+	            "Resource not found",
+	            HttpStatus.NOT_FOUND.value(),
+	            LocalDateTime.now()
+	    );
+
+	    return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
 	}
 	
 	 // ─────────────────────────────────────────────────
