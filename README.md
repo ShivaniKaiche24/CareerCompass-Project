@@ -105,6 +105,17 @@ Repository Layer  →  database via JPA
 Security Layer    →  JWT filter on every request
 AI Layer          →  Gemini API integration
 
+## 🚀 Live Deployment
+
+**Base URL:** `https://careercompass-project.up.railway.app`
+
+- Swagger UI: `https://careercompass-project.up.railway.app/swagger-ui/index.html`
+- Health check: `https://careercompass-project.up.railway.app/actuator/health`
+
+> Note: Free-tier Railway apps sleep after inactivity — first request may take 5–10s to wake up.
+
+
+
 ## Author
 
 **Shivani Kaiche** 
