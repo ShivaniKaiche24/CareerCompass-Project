@@ -107,10 +107,10 @@ AI Layer          →  Gemini API integration
 
 ## 🚀 Live Deployment
 
-**Base URL:** `https://careercompass-project.up.railway.app`
+**Base URL:** `https://careercompass-project-production.up.railway.app`
 
-- Swagger UI: `https://careercompass-project.up.railway.app/swagger-ui/index.html`
-- Health check: `https://careercompass-project.up.railway.app/actuator/health`
+- Swagger UI: `https://careercompass-project-production.up.railway.app/swagger-ui/index.html`
+- Health check: `https://careercompass-project-production.up.railway.app/actuator/health`
 
 > Note: Free-tier Railway apps sleep after inactivity — first request may take 5–10s to wake up.
 
