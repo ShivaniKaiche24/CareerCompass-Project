@@ -109,6 +109,8 @@ public class GlobalExceptionHandler {
 	public ResponseEntity<ErrorResponseDTO> handleGenericException(
 			Exception ex){
 		
+		ex.printStackTrace();
+		
 		ErrorResponseDTO error = new ErrorResponseDTO(
                 "Something went wrong. Please try again.",
                 HttpStatus.INTERNAL_SERVER_ERROR.value(),
