@@ -25,6 +25,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class SecurityConfig {
 	
+	@SuppressWarnings("unused")
 	private final JwtAuthFilter jwtAuthFilter;
 	
 	
