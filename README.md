@@ -77,7 +77,7 @@ gap in interviews. I built CareerCompass to solve exactly those problems.
 
 1. Clone the repository
 ```bash
-   git clone https://github.com/YOUR_USERNAME/careercompass-backend.git
+   git clone https://github.com/ShivaniKaiche24/careercompass-backend.git
 ```
 
 2. Create MySQL database
