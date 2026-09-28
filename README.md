@@ -95,8 +95,8 @@ gap in interviews. I built CareerCompass to solve exactly those problems.
    mvn spring-boot:run
 ```
 
-6. API is available at `http://localhost:8000`
-   Swagger docs at `http://localhost:8000/swagger-ui.html`
+6. API is available at `http://localhost:8080`
+   Swagger docs at `http://localhost:8080/swagger-ui.html`
 
 ## Architecture
 Controller Layer  →  receives HTTP requests
