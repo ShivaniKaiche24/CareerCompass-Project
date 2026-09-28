@@ -382,9 +382,21 @@ These issues helped strengthen the application's authentication and authorizatio
 
 ---
 
-# Deployment
+## Deployment
 
-The backend is deployed using **Railway**.
+The backend was deployed on Railway during development.
+
+The application can also be run locally using Java 17, Maven, and MySQL.
+
+> The current public deployment may be unavailable when the Railway free-tier service is inactive or no longer available. For development and demonstration, follow the local setup instructions below.
+1. Start MySQL
+2. Start Spring Boot
+3. Open Swagger
+4. Register a user
+5. Login
+6. Copy JWT
+7. Call one protected endpoint
+8. Generate/test a roadmap
 
 ### Production Base URL
 
